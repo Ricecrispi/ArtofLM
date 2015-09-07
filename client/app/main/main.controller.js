@@ -1,10 +1,10 @@
 'use strict';
 
 angular.module('artOfLmApp')
-  .controller('MainCtrl', ['$scope', 'Restangular', function($scope, Restangular) {
+  .controller('MainCtrl', ['$scope', 'artwork', function($scope, artwork) {
 
     $scope.getNextPage = function () {
-      Restangular.getList().then(function (data) {
+      Artwork.get().then(function (data) {
         $scope.artwork = data;
       });
     };

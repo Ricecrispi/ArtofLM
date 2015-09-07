@@ -1,0 +1,9 @@
+<form ng-submit="saveArt()">
+  <label>Artwork Name</label>
+  <input ng-model="file.name" placeholder="Artwork Name">
+
+  <div class="button" ngf-select ng-model="file" name="file" ngf-pattern="'image/*"
+       accept="image/*" ngf-max-size="20MB" ngf-min-height="100">Select</div>
+
+  <button type="submit" class="btn btn-default">Add</button>
+</form>
