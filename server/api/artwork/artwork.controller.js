@@ -88,7 +88,7 @@ exports.create = function(req, res) {
     var extension = (extIndex < 0) ? '' : tmpPath.substr(extIndex);
     // uuid is for generating unique filenames.
     var fileName = uuid.v4() + extension;
-    var destPath = '/server/assets/artwork/' + fileName;
+    var destPath = 'server/assets/artwork/' + fileName;
 
     // Server side file type checker.
     if (contentType !== 'image/png' && contentType !== 'image/jpeg') {
@@ -98,11 +98,11 @@ exports.create = function(req, res) {
 
     fs.rename(tmpPath, destPath, function(err) {
       if (err) {
-        Artwork.createAsync({name: req.body.name, url: destPath})
-          .then(responseWithResult(res, 201))
-          .catch(handleError(res));
-      }
         handleError(res);
+      };
+      Artwork.createAsync({url: '/' + destPath, name: fields.name})
+        .then(responseWithResult(res, 201))
+        .catch(handleError(res));
     });
   });
 
