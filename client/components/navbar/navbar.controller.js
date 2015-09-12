@@ -3,7 +3,7 @@
 angular.module('artOfLmApp')
   .controller('NavbarCtrl', function ($scope) {
     $scope.menu = [{
-      'title': 'Home',
+      'title': 'Add ',
       'state': 'main'
     }];
 

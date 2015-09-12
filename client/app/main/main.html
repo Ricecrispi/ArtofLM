@@ -1,22 +1,23 @@
-<navbar></navbar>
+<div class="text-right">
+  <button id="add-artwork-button" class="btn btn-lg" ui-sref="artwork">
+    <span class="glyphicon glyphicon-plus" aria-hidden="true"></span>
+    Add Artwork
+  </button>
+</div>
+<div class="text-center">
+  <h1>Art of Ling Mei</h1>
+  <ul class="artwork-display">
+    <li ng-repeat="item in artwork">
+      <a href="{{ item.url }}"><img ng-src="item.url"></a>
+    </li>
+  </ul>
 
-<header class="hero-unit" id="banner">
-  <div class="container">
-    <h1>'Allo, 'Allo!</h1>
-    <p class="lead">Kick-start your next web app with Angular Fullstack</p>
-    <img src="assets/images/yeoman.png" alt="I'm Yeoman">
-  </div>
-</header>
+  <br>
+  <br>
 
-<div class="container">
-  <div class="row">
-    <div class="col-lg-12">
-      <h1 class="page-header">Features:</h1>
-      <ul class="nav nav-tabs nav-stacked col-md-4 col-lg-4 col-sm-6" ng-repeat="thing in awesomeThings">
-        <li><a href="#" tooltip="{{thing.info}}">{{thing.name}}</a></li>
-      </ul>
-    </div>
-  </div>
+  <span id="load-more-button" ng-show="true">
+    <span class="glyphicon glyphicon-download" aria-hidden="true"></span>
+    Load More
+  </span>
 </div>
 
-<footer></footer>

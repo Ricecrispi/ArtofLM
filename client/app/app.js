@@ -7,7 +7,7 @@ angular.module('artOfLmApp', [
   'ui.router',
   'ui.bootstrap',
   'restangular',
-  'infinite-scroll'
+  'ngFileUpload'
 ])
   .config(function($stateProvider, $urlRouterProvider, $locationProvider) {
     $urlRouterProvider
