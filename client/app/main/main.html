@@ -14,7 +14,7 @@
   <ul id="artwork-display">
     <li ng-repeat="item in artworkList">
       <a href="{{ item.url }}" target="_blank"><img ng-src="{{ item.url }}"></a>
-      <a href="" ng-click="delete(item._id)">
+      <a href="" ng-click="delete(item)">
         <span class="glyphicon glyphicon-remove"></span>
       </a>
       <br>

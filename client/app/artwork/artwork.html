@@ -6,10 +6,10 @@
     <form id="add-artwork-form" ng-submit="create()">
       <label>Image File</label>
       <br>
-      <input type="file" ngf-select ng-model="file" name="file" accept="image/*" required>
+      <input type="file" ngf-select ng-model="art.file" name="file" accept="image/*" required>
       <br>
       <label>Artwork Name</label>
-      <input class="form-control" ng-model="name" placeholder="Artwork Name" required>
+      <input class="form-control" ng-model="art.name" placeholder="Artwork Name" required>
       <br>
       <br>
       <button type="submit" class="btn btn-lg btn-default">
