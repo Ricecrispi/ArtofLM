@@ -2,12 +2,9 @@
 
 angular.module('artOfLmApp')
   .controller('ArtworkCtrl', ['$scope', 'artwork', '$state', function ($scope, artwork, $state) {
-    $scope.artwork = artwork;
-
-    $scope.create = function () {
-      artwork.create({name: $scope.name}, $scope.file).success(function (data) {
+    $scope.create = function() {
+      artwork.create({name: $scope.name}, $scope.file).then(function (data) {
         $state.go('main');
       });
-
     };
   }]);

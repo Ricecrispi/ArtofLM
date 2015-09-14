@@ -6,16 +6,23 @@
 </div>
 <div class="text-center">
   <h1>Art of Ling Mei</h1>
-  <ul class="artwork-display">
-    <li ng-repeat="item in artwork">
-      <a href="{{ item.url }}"><img ng-src="item.url"></a>
+  <br>
+  <br>
+  <ul id="artwork-display">
+    <li ng-repeat="item in artworkList">
+      <a href="{{ item.url }}" target="_blank"><img ng-src="{{ item.url }}"></a>
+      <a href="" ng-click="delete(item._id)">
+        <span class="glyphicon glyphicon-remove"></span>
+      </a>
+      <br>
+      <br>
     </li>
   </ul>
 
   <br>
   <br>
 
-  <span id="load-more-button" ng-show="true">
+  <span id="load-more-button" ng-show="true" ng-click="loadMore()">
     <span class="glyphicon glyphicon-download" aria-hidden="true"></span>
     Load More
   </span>

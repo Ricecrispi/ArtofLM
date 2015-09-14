@@ -3,8 +3,8 @@
 angular.module('artOfLmApp')
   .service('artwork', ['Restangular', 'Upload', function (Restangular, Upload) {
 
-    this.get = function () {
-      return Restangular.getList();
+    this.loadMore = function (params) {
+      return Restangular.all('api/artworks/load-more').getList(params);
     };
 
     this.create = function (details, file) {
@@ -15,8 +15,8 @@ angular.module('artOfLmApp')
       });
     };
 
-    this.update = function (details, file) {
-
+    this.delete = function (id) {
+      return Restangular.all('api/artworks/' + id).remove()
     };
 
     return this;

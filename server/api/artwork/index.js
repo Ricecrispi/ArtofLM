@@ -6,6 +6,7 @@ var controller = require('./artwork.controller');
 var router = express.Router();
 
 router.get('/', controller.index);
+router.get('/load-more', controller.loadMore);
 router.get('/:id', controller.show);
 router.post('/', controller.create);
 router.put('/:id', controller.update);
