@@ -10,10 +10,13 @@
 'use strict';
 
 var _ = require('lodash');
+var config = require('../../config/environment');
 var Artwork = require('./artwork.model');
 var uuid = require('node-uuid');
 var multiparty = require('multiparty');
 var  fs = require('fs');
+var Parse = require('parse/node').Parse;
+Parse.initialize(config.PARSE_APPID, config.PARSE_JSKEY);
 
 function handleError(res, statusCode) {
   statusCode = statusCode || 500;
@@ -79,31 +82,53 @@ exports.show = function(req, res) {
 
 // Creates a new Artwork in the DB
 exports.create = function(req, res) {
+
     var form = new multiparty.Form();
     form.parse(req, function(err, fields, files) {
-    var file = files.file[0];
-    var contentType = file.headers['content-type'];
-    var tmpPath = file.path;
-    var extIndex = tmpPath.lastIndexOf('.');
-    var extension = (extIndex < 0) ? '' : tmpPath.substr(extIndex);
-    // uuid is for generating unique filenames.
-    var fileName = uuid.v4() + extension;
-    var destPath = 'client/assets/artwork/' + fileName;
+      var file = files.file[0];
+      fs.readFile(file.path, function (err, data) {
+        var base64data = new Buffer(data).toString('base64');
+        var photoFile = new Parse.File(fields.name, {base64: base64data});
 
-    // Server side file type checker.
-    if (contentType !== 'image/png' && contentType !== 'image/jpeg') {
-      fs.unlink(tmpPath);
-      return res.status(400).send('Unsupported file type.');
-    }
+        photoFile.save({
+          success: function (file) {
+            Artwork.createAsync({url: file._url, name: fields.name})
+              .then(responseWithResult(res, 201))
+              .catch(handleError(res));
+          },
+          error: function (error) {
+            console.log(error);
+            res.send(500);
+          }
+        });
+      });
 
-    fs.rename(tmpPath, destPath, function(err) {
-      if (err) {
-        handleError(res);
-      };
-      Artwork.createAsync({url: 'assets/artwork/' + fileName, name: fields.name})
-        .then(responseWithResult(res, 201))
-        .catch(handleError(res));
-    });
+
+
+
+
+    //var contentType = file.headers['content-type'];
+    //var tmpPath = file.path;
+    //var extIndex = tmpPath.lastIndexOf('.');
+    //var extension = (extIndex < 0) ? '' : tmpPath.substr(extIndex);
+    //// uuid is for generating unique filenames.
+    //var fileName = uuid.v4() + extension;
+    //var destPath = 'dist/client/assets/images/' + fileName;
+    //
+    //// Server side file type checker.
+    //if (contentType !== 'image/png' && contentType !== 'image/jpeg') {
+    //  fs.unlink(tmpPath);
+    //  return res.status(400).send('Unsupported file type.');
+    //}
+    //
+    //fs.rename(tmpPath, destPath, function(err) {
+    //  if (err) {
+    //    handleError(res);
+    //  };
+    //  Artwork.createAsync({url: 'assets/images/' + fileName, name: fields.name})
+    //    .then(responseWithResult(res, 201))
+    //    .catch(handleError(res));
+    //});
   });
 };
 
