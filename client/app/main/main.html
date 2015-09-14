@@ -1,5 +1,8 @@
 <div class="text-right">
-  <button id="add-artwork-button" class="btn btn-lg" ui-sref="artwork">
+  <a ng-if="!loggedIn" href="" ui-sref="auth">Are you an admin? Click here to login.</a>
+  <a ng-if="loggedIn" href="" ng-click="logout()">Logout</a>
+  <br>
+  <button ng-if="loggedIn" id="add-artwork-button" class="btn btn-lg" ui-sref="artwork">
     <span class="glyphicon glyphicon-plus" aria-hidden="true"></span>
     Add Artwork
   </button>

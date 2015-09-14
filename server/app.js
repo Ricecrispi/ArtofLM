@@ -9,6 +9,7 @@ process.env.NODE_ENV = process.env.NODE_ENV || 'development';
 
 var express = require('express');
 var mongoose = require('mongoose');
+var cookieSession = require('cookie-session');
 var config = require('./config/environment');
 
 // Connect to MongoDB
@@ -23,6 +24,13 @@ if (config.seedDB) { require('./config/seed'); }
 
 // Setup server
 var app = express();
+
+app.use(cookieSession({
+  name: 'session',
+  keys: ['key1', 'key2']
+}))
+
+
 var server = require('http').createServer(app);
 require('./config/express')(app);
 require('./routes')(app);

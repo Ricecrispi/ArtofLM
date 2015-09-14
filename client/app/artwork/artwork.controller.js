@@ -7,4 +7,14 @@ angular.module('artOfLmApp')
         $state.go('main');
       });
     };
+
+    $scope.isLoggedIn = function() {
+      auth.isLoggedIn().then(function (data) {
+        $scope.loggedIn = data;
+      }, function () {
+
+      });
+    };
+
+    $scope.isLoggedIn();
   }]);
